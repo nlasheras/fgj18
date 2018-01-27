@@ -17,12 +17,15 @@ public class GameManager : MonoBehaviour {
     public bool canAttack = true;
     public bool canWallSlide = true;
 
+    private Player player;
+
     public void Start ()
     {
         StartGame ();
     }
 
     public void PlayerDied() {
+        Destroy ( player.gameObject );
         StartCoroutine(RespawnPlayer());
     }
 
@@ -37,7 +40,7 @@ public class GameManager : MonoBehaviour {
             playerRespawnPoint = startPoint.transform.position;
             startPoint.LevelStarted();
         }
-        Instantiate(playerPrefab, playerRespawnPoint, playerPrefab.transform.rotation);
+        player = Instantiate(playerPrefab, playerRespawnPoint, playerPrefab.transform.rotation).GetComponent<Player>();
     }
 
     public void StartGame() {

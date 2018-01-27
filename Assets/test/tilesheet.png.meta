@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 84aee58762d044c808993a2c905a8e14
-timeCreated: 1517068943
+timeCreated: 1517071654
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -14,7 +14,7 @@ TextureImporter:
     21300014: tilesheet_7
     21300016: tilesheet_8
     21300018: tilesheet_9
-    21300020: tilesheet_10
+    21300020: spike
     21300022: tilesheet_11
     21300024: tilesheet_12
     21300026: tilesheet_13
@@ -248,7 +248,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tilesheet_10
+      name: spike
       rect:
         serializedVersion: 2
         x: 64
