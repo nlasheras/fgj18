@@ -88,6 +88,7 @@ public class GameManager : Singleton<GameManager> {
         float totalTime = Time.time - levelStartedAt;
 
         currentLevel++;
+        Debug.Log ( "currentLevel:" +currentLevel );
         SceneManager.LoadScene(currentLevel);
     }
 }

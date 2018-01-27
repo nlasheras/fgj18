@@ -54,7 +54,7 @@ public class Doorkey : MonoBehaviour
         if ( audioSource != null )
             audioSource.Play ();
 
-        animator.SetTrigger ( "collect" );
+        mainSprite.sprite = mainSprite.sprite == offSprite ? onSprite : offSprite;
 
         openingParticleSystem.transform.SetParent ( null );
         var main = openingParticleSystem.main;
