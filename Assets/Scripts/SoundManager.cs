@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SoundManager : SingletonBehaviour<SoundManager>
+﻿public class SoundManager : SingletonBehaviour<SoundManager>
 {
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Awake ()
+    {
+        RegisterSingleton ();
+    }
+
+    private void OnDestroy ()
+    {
+        UnregisterSingleton ();
+    }
 }

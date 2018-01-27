@@ -8,7 +8,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
         if ( Instance != null )
         {
-            Debug.LogWarning ( "Trying to register another SingletonBehaviour of " + typeof ( T ) + ", destroying the new object." );
+            Debug.LogWarning ( "Trying to register another SingletonBehaviour of " + typeof ( T ) );
             Destroy ( this.gameObject );
         }
         else
@@ -29,7 +29,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 #if UNITY_EDITOR
             if (UnityEditor.EditorApplication.isPlaying)
 #endif
-            Debug.LogError ( "UnregisterSingleton called for SingletonBehaviour of " + typeof ( T ) + ", instance unregistered already" );
+            Debug.LogError ( "UnregisterSingleton called for SingletonBehaviour of " + typeof ( T ) );
         }
     }
 }
