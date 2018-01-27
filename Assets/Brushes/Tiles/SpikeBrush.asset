@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3726021bfa31fe408a16fac5bae0acb, type: 3}
+  m_Name: SpikeBrush
+  m_EditorClassIdentifier: 
+  m_Prefab: {fileID: 1938784462226060, guid: 13c67616a4404c948869ef9b59ef9a36, type: 2}
+  m_LayerName: Spikes
+  m_PrefabOffset: {x: 0.5, y: 0.5, z: 0}
