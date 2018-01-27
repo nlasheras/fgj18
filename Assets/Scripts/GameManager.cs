@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager> {
 
     public GameObject playerPrefab;
     [HideInInspector]
@@ -26,16 +26,6 @@ public class GameManager : MonoBehaviour {
     }
 
     private Player player;
-
-
-    public void Awake ()
-    {
-        GameObject.DontDestroyOnLoad(gameObject);
-        if (FindObjectsOfType(GetType()).Length > 1)
-        {
-            Destroy(gameObject);
-        }
-    }
 
     void OnEnable()
     {
@@ -92,7 +82,8 @@ public class GameManager : MonoBehaviour {
         }
         
 
-        if (gameState != GameState.Playing) return;
+        if (gameState != GameState.Playing)
+            return;
         gameState = GameState.Done;
         float totalTime = Time.time - levelStartedAt;
 
