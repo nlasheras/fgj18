@@ -6,13 +6,14 @@ public class LevelStart : MonoBehaviour {
 
     AudioSource audioSource;
     public ParticleSystem spawnParticleSystem;
-    void Start() {
+    void Start()
+    {
         audioSource = GetComponent<AudioSource>();
     }
-    public void LevelStarted() {
+
+    public void LevelStarted()
+    {
         if(audioSource != null) audioSource.Play();
         spawnParticleSystem.Play();
-
     }
-
 }

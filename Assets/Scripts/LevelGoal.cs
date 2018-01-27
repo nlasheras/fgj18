@@ -6,15 +6,21 @@ public class LevelGoal : MonoBehaviour {
     AudioSource audioSource;
     public ParticleSystem victoryParticleSystem;
 
-    void Start() {
+    void Start()
+    {
         audioSource = GetComponent<AudioSource>();
     }
-    void OnTriggerEnter2D(Collider2D other) {
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
         if ( !other.gameObject.CompareTag ( "Player" ) )
             return;
 
-        FindObjectOfType<GameManager>().GoalReached(this, skillToDisable);
-        if (audioSource != null) audioSource.Play();
+        GameManager.Instance.GoalReached(this, skillToDisable);
+
+        if (audioSource != null)
+            audioSource.Play();
+
         victoryParticleSystem.Play();
     }
 

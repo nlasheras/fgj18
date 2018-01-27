@@ -763,6 +763,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114834153612104762, guid: 5c96956dea30bb04393c1c7ea4c3054a,
+        type: 2}
+      propertyPath: canAttack
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c96956dea30bb04393c1c7ea4c3054a, type: 2}
   m_IsPrefabParent: 0
@@ -2216,14 +2221,6 @@ CompositeCollider2D:
         Y: -80000000
       - X: -100000000
         Y: -80000000
-    - - X: 100000000
-        Y: 30000000
-      - X: 90000000
-        Y: 30000000
-      - X: 90000000
-        Y: 20000000
-      - X: 100000000
-        Y: 20000000
     - - X: 140000000
         Y: 20000000
       - X: 130000000
@@ -2260,6 +2257,14 @@ CompositeCollider2D:
         Y: -10000000
       - X: 140000000
         Y: -10000000
+    - - X: 100000000
+        Y: 30000000
+      - X: 90000000
+        Y: 30000000
+      - X: 90000000
+        Y: 20000000
+      - X: 100000000
+        Y: 20000000
     - - X: -40000000
         Y: 10000000
       - X: -80000000
@@ -2276,14 +2281,6 @@ CompositeCollider2D:
         Y: -50000000
       - X: 100000000
         Y: -50000000
-    - - X: 120000000
-        Y: -50000000
-      - X: 100000000
-        Y: -50000000
-      - X: 100000000
-        Y: -60000000
-      - X: 120000000
-        Y: -60000000
     - - X: -50000000
         Y: -50000000
       - X: -80000000
@@ -2292,6 +2289,14 @@ CompositeCollider2D:
         Y: -80000000
       - X: -50000000
         Y: -80000000
+    - - X: 120000000
+        Y: -50000000
+      - X: 100000000
+        Y: -50000000
+      - X: 100000000
+        Y: -60000000
+      - X: 120000000
+        Y: -60000000
   m_CompositePaths:
     m_Paths:
     - - {x: -10, y: -5}
@@ -2312,10 +2317,6 @@ CompositeCollider2D:
       - {x: -17, y: 8}
       - {x: -17, y: -8}
       - {x: -10, y: -8}
-    - - {x: 10, y: 3}
-      - {x: 9, y: 3}
-      - {x: 9, y: 2}
-      - {x: 10, y: 2}
     - - {x: 14, y: 2}
       - {x: 13, y: 2}
       - {x: 13, y: 0}
@@ -2334,6 +2335,10 @@ CompositeCollider2D:
       - {x: 6, y: 1}
       - {x: 6, y: -1}
       - {x: 14, y: -1}
+    - - {x: 10, y: 3}
+      - {x: 9, y: 3}
+      - {x: 9, y: 2}
+      - {x: 10, y: 2}
     - - {x: -4, y: 1}
       - {x: -8, y: 1}
       - {x: -8, y: 0}
@@ -2342,14 +2347,14 @@ CompositeCollider2D:
       - {x: 6, y: -4}
       - {x: 6, y: -5}
       - {x: 10, y: -5}
-    - - {x: 12, y: -5}
-      - {x: 10, y: -5}
-      - {x: 10, y: -6}
-      - {x: 12, y: -6}
     - - {x: -5, y: -5}
       - {x: -8, y: -5}
       - {x: -8, y: -8}
       - {x: -5, y: -8}
+    - - {x: 12, y: -5}
+      - {x: 10, y: -5}
+      - {x: 10, y: -6}
+      - {x: 12, y: -6}
   m_VertexDistance: 0.0005
 --- !u!50 &1290411105
 Rigidbody2D:
@@ -2615,6 +2620,93 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0e6ae8b55fd36e4ab41a30735b6b52f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1868465444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1868465445}
+  - component: {fileID: 1868465447}
+  - component: {fileID: 1868465446}
+  - component: {fileID: 1868465448}
+  m_Layer: 0
+  m_Name: KillTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1868465445
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868465444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -9, z: 0}
+  m_LocalScale: {x: 50, y: 3, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1980899876}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1868465446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868465444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c05beac2c9173447a2e5773e0a52b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &1868465447
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868465444}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!50 &1868465448
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868465444}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1933831031
 Prefab:
   m_ObjectHideFlags: 0
@@ -2624,11 +2716,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4209904715019826, guid: 9f1714d8ae56e0946aaa585135dcef52, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -14.64384
+      value: -14.45
       objectReference: {fileID: 0}
     - target: {fileID: 4209904715019826, guid: 9f1714d8ae56e0946aaa585135dcef52, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.4905124
+      value: 4.09
       objectReference: {fileID: 0}
     - target: {fileID: 4209904715019826, guid: 9f1714d8ae56e0946aaa585135dcef52, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2652,6 +2744,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4209904715019826, guid: 9f1714d8ae56e0946aaa585135dcef52, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114624060714771742, guid: 9f1714d8ae56e0946aaa585135dcef52,
+        type: 2}
+      propertyPath: skillToDisable
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2696,6 +2793,7 @@ Transform:
   m_Children:
   - {fileID: 1290411100}
   - {fileID: 790871346}
+  - {fileID: 1868465445}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

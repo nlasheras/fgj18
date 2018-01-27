@@ -47,8 +47,6 @@ public class Player : MonoBehaviour
 
     float prevXdir = 1;
 
-    GameManager gameManager;
-
     CharacterAnimation characterController;
 
     // Use this for initialization
@@ -61,10 +59,7 @@ public class Player : MonoBehaviour
         maxJumpVelocity = Mathf.Abs ( gravity * timeToJumpApex );
         minJumpVelocity = Mathf.Sqrt ( 2 * Mathf.Abs ( gravity ) * minJumpHeight );
 
-        gameManager = FindObjectOfType<GameManager>();
-
         Debug.Log ( "Gravity: " + gravity + " JumpVelocity: " + maxJumpVelocity );
-
 
     }
 
@@ -73,7 +68,7 @@ public class Player : MonoBehaviour
     {
         CalculateVelocity ();
 
-        if (gameManager.canWallSlide)
+        if (GameManager.Instance.canWallSlide)
             HandleWallSliding ();
 
         controller.Move ( velocity * Time.deltaTime, directionalInput );
@@ -91,18 +86,15 @@ public class Player : MonoBehaviour
         else
             characterController.idleRight();
 
-
         if (controller.collisionInfo.above || controller.collisionInfo.below)
         {
             velocity.y = 0;
         }
-
-
     }
 
     public void SetDirectionalInput ( Vector2 input )
     {
-        if (gameManager.canMoveBack || input.x > 0 )
+        if (GameManager.Instance.canMoveBack || input.x > 0 )
             directionalInput = input;
 
         if (input.x != 0)
@@ -111,7 +103,7 @@ public class Player : MonoBehaviour
 
     public void OnJumpInputDown ()
     {
-        if (!gameManager.canJump)
+        if (!GameManager.Instance.canJump)
             return;
 
         Debug.Log ( "JumpDown" );
@@ -143,7 +135,7 @@ public class Player : MonoBehaviour
     public void OnJumpInputUp ()
     {
         Debug.Log ( "JumpUp" );
-        if (gameManager.canJump && velocity.y > minJumpVelocity )
+        if (GameManager.Instance.canJump && velocity.y > minJumpVelocity )
         {
             velocity.y = minJumpVelocity;
         }
@@ -152,7 +144,7 @@ public class Player : MonoBehaviour
     public void OnAttackInputUp()
     {
         Debug.Log("attack");
-        if (gameManager.canAttack)
+        if (GameManager.Instance.canAttack)
         {
             Vector2 end = transform.position;
             if (directionalInput.x >= 0)

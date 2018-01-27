@@ -6,7 +6,7 @@ public class Spike : MonoBehaviour
     {
         if ( other.CompareTag ( "Player" ) )
         {
-            FindObjectOfType<GameManager>().PlayerDied();
+           GameManager.Instance.PlayerDied ();
         }
     }
 }

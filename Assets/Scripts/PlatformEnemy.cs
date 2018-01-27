@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlatformEnemy : PlatformController
 {
@@ -8,7 +7,6 @@ public class PlatformEnemy : PlatformController
     // Use this for initialization
     public override void Start()
     {
-        
         base.Start(); 
     }
 
@@ -28,8 +26,8 @@ public class PlatformEnemy : PlatformController
         {
             Debug.Log("Player Got hit by the enemy!!");
             Destroy(target.gameObject);
-            
-            FindObjectOfType<GameManager>().PlayerDied();
+
+            GameManager.Instance.PlayerDied ();
         }
     }
 

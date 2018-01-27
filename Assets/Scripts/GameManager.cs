@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager> {
+public class GameManager : SingletonBehaviour<GameManager> {
 
     public GameObject playerPrefab;
     [HideInInspector]
@@ -18,51 +18,75 @@ public class GameManager : Singleton<GameManager> {
     public bool canAttack = true;
     public bool canWallSlide = true;
 
-    int currentLevel = 0;
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        StartGame();
-    }
-
     private Player player;
 
-    void OnEnable()
+    int currentLevel = 0;
+
+    private void Awake ()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        RegisterSingleton ();
+        currentLevel = SceneManager.GetActiveScene ().buildIndex;
     }
 
-    void OnDisable()
+    private void Update ()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    public void PlayerDied() {
-        SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
-    }
-
-    IEnumerator RespawnPlayer() {
-        yield return new WaitForSeconds(.5f);
-        MakePlayer();
-    }
-
-    void MakePlayer() {
-        var startPoint = FindObjectOfType<LevelStart>();
-        if (startPoint != null) {
-            playerRespawnPoint = startPoint.transform.position;
-            startPoint.LevelStarted();
+        switch ( gameState )
+        {
+            case GameState.NotStarted:
+                if ( Input.GetKeyDown ( KeyCode.Space ) )
+                {
+                    StartGame ();
+                }
+                break;
+            case GameState.Playing:
+                if ( Input.GetKeyDown ( KeyCode.R ) )
+                {
+                    SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
+                }
+                break;
+            case GameState.Done:
+                break;
+            default:
+                break;
         }
-        player = Instantiate(playerPrefab, playerRespawnPoint, playerPrefab.transform.rotation).GetComponent<Player>();
     }
 
-    public void StartGame() {
+    public void StartLevel()
+    {
+        gameState = GameState.NotStarted;
+        Debug.Log ( "currentLevel:" + currentLevel );
+        SceneManager.LoadScene ( currentLevel, LoadSceneMode.Single );
+    }
+
+    public void StartGame ()
+    {
         gameState = GameState.Playing;
-        MakePlayer();
+        SpawnPlayer ();
         levelStartedAt = Time.time;
     }
 
-    public void GoalReached(LevelGoal goal, Player.PlayerSkill playerSkill) {
+    public void PlayerDied ()
+    {
+        gameState = GameState.NotStarted;
+        Destroy ( player.gameObject );
+        player = null;
+    }
 
+    void SpawnPlayer()
+    {
+        var startPoint = FindObjectOfType<LevelStart>();
+
+        if (startPoint != null)
+        {
+            playerRespawnPoint = startPoint.transform.position;
+            startPoint.LevelStarted();
+        }
+
+        player = Instantiate(playerPrefab, playerRespawnPoint, playerPrefab.transform.rotation).GetComponent<Player>();
+    }
+
+    public void GoalReached(LevelGoal goal, Player.PlayerSkill playerSkill)
+    {
         switch (playerSkill)
         {
             case Player.PlayerSkill.ATTACK:
@@ -81,14 +105,20 @@ public class GameManager : Singleton<GameManager> {
                 break;
         }
         
-
         if (gameState != GameState.Playing)
             return;
+
         gameState = GameState.Done;
         float totalTime = Time.time - levelStartedAt;
 
         currentLevel++;
         Debug.Log ( "currentLevel:" +currentLevel );
-        SceneManager.LoadScene(currentLevel);
+        StartLevel ();
+    }
+
+    private void OnDestroy ()
+    {
+        Debug.Log ( "GameManager OnDestroy" );
+        UnregisterSingleton ();
     }
 }

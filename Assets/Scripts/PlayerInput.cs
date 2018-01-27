@@ -24,10 +24,6 @@ public class PlayerInput : MonoBehaviour {
         {
             player.OnJumpInputUp ();
         }
-        if ( Input.GetKeyDown ( KeyCode.R ) )
-        {
-            SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
-        }
         if (Input.GetKeyUp(KeyCode.F))
         {
             player.OnAttackInputUp();
