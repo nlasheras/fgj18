@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 #if UNITY_EDITOR
 public class BrushEditorUtility 
 {
-	const string k_CameraName = "Cameras";
+	const string k_CameraName = "MainCamera";
 	private static Material s_GizmoMaterial;
 
 	private static void InitializeMaterial(Color color)
