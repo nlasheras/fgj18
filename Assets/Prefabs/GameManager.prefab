@@ -54,3 +54,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1874377977528478, guid: ed7fb6588ac9f2640960ea5a432543dd,
     type: 2}
   playerRespawnPoint: {x: 0, y: 0}
+  canJump: 1
+  canMoveBack: 1
+  canAttack: 1
+  canWallSlide: 0
