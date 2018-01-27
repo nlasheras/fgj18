@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent ( typeof ( Player ) )]
 public class PlayerInput : MonoBehaviour {
@@ -22,6 +23,10 @@ public class PlayerInput : MonoBehaviour {
         if ( Input.GetKeyUp ( KeyCode.Space ) )
         {
             player.OnJumpInputUp ();
+        }
+        if ( Input.GetKeyDown ( KeyCode.R ) )
+        {
+            SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
         }
     }
 }
