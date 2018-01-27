@@ -45,12 +45,17 @@ public class Player : MonoBehaviour
     bool wallSliding;
     int wallDirX;
 
+    float prevXdir = 1;
+
     GameManager gameManager;
-   
+
+    CharacterAnimation characterController;
+
     // Use this for initialization
     void Start ()
     {
         controller = GetComponent<PlayerController> ();
+        characterController = GetComponent<CharacterAnimation>();
 
         gravity = -( 2 * maxJumpHeight ) / Mathf.Pow ( timeToJumpApex, 2 );
         maxJumpVelocity = Mathf.Abs ( gravity * timeToJumpApex );
@@ -73,16 +78,35 @@ public class Player : MonoBehaviour
 
         controller.Move ( velocity * Time.deltaTime, directionalInput );
 
-        if ( controller.collisionInfo.above || controller.collisionInfo.below )
+        if (velocity.y > 0 && directionalInput.x > 0)
+            characterController.jumpRight();
+        else if (velocity.y > 0 && directionalInput.x < 0)
+            characterController.jumpLeft();
+        else if (directionalInput.x > 0)
+            characterController.moveRight();
+        else if (directionalInput.x < 0)
+            characterController.moveLeft();
+        else if (prevXdir < 0)
+            characterController.idleLeft();
+        else
+            characterController.idleRight();
+
+
+        if (controller.collisionInfo.above || controller.collisionInfo.below)
         {
             velocity.y = 0;
         }
+
+
     }
 
     public void SetDirectionalInput ( Vector2 input )
     {
         if (gameManager.canMoveBack || input.x > 0 )
             directionalInput = input;
+
+        if (input.x != 0)
+            prevXdir = input.x;
     }
 
     public void OnJumpInputDown ()
@@ -133,12 +157,14 @@ public class Player : MonoBehaviour
             Vector2 end = transform.position;
             if (directionalInput.x >= 0)
             {
+                characterController.attackRight();
                 Debug.Log("attack right");
                 end.x += 2;
             }
                 
             else if (directionalInput.x < 0)
             {
+                characterController.attackLeft();
                 Debug.Log("attack left");
                 end.x -= 2;
             }

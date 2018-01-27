@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114858429809479312}
   - component: {fileID: 114277110107499978}
   - component: {fileID: 114133746098775068}
+  - component: {fileID: 95128952451104108}
+  - component: {fileID: 114686489722166066}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -69,6 +71,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 2}
   m_EdgeRadius: 0
+--- !u!95 &95128952451104108
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1874377977528478}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b9bb667196fd4b658022072e46fe8e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114133746098775068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,6 +121,17 @@ MonoBehaviour:
   wallLeap: {x: 8, y: 9}
   wallSlideSpeedMax: 1
   wallStickTime: 0.2
+--- !u!114 &114686489722166066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1874377977528478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad208e9054e04237ad7345732928e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114858429809479312
 MonoBehaviour:
   m_ObjectHideFlags: 1
