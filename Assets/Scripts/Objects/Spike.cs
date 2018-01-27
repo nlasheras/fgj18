@@ -7,7 +7,7 @@ public class Spike : MonoBehaviour
         Debug.Log ( "HITSPIKE!" );
         if ( other.CompareTag ( "Player" ) )
         {
-            FindObjectOfType<GameManager> ().PlayerDied ();
+            FindObjectOfType<GameManager>().PlayerDied();
         }
     }
 }
