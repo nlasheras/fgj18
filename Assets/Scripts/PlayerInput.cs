@@ -28,5 +28,9 @@ public class PlayerInput : MonoBehaviour {
         {
             SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
         }
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            player.OnAttackInputUp();
+        }
     }
 }

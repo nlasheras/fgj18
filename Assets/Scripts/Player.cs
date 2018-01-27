@@ -4,6 +4,13 @@
 [RequireComponent ( typeof ( PlayerController ) )]
 public class Player : MonoBehaviour
 {
+    public bool canJump = true;
+    public bool canMoveBack = true;
+    public bool canAttack = true;
+    public bool canWallSlide = true;
+
+    public LayerMask enemyLayer;         //Layer on which collision will be checked.
+
     public float maxJumpHeight = 2f;
     public float minJumpHeight = 1f;
     public float timeToJumpApex = .5f;
@@ -34,6 +41,8 @@ public class Player : MonoBehaviour
     bool wallSliding;
     int wallDirX;
 
+
+    private Vector2 end;
     // Use this for initialization
     void Start ()
     {
@@ -50,7 +59,9 @@ public class Player : MonoBehaviour
     void Update ()
     {
         CalculateVelocity ();
-        HandleWallSliding ();
+
+        if (canWallSlide)
+            HandleWallSliding ();
 
         controller.Move ( velocity * Time.deltaTime, directionalInput );
 
@@ -62,11 +73,15 @@ public class Player : MonoBehaviour
 
     public void SetDirectionalInput ( Vector2 input )
     {
-        directionalInput = input;
+        if ( canMoveBack || input.x > 0 )
+            directionalInput = input;
     }
 
     public void OnJumpInputDown ()
     {
+        if (!canJump)
+            return;
+
         Debug.Log ( "JumpDown" );
         if ( wallSliding )
         {
@@ -96,10 +111,42 @@ public class Player : MonoBehaviour
     public void OnJumpInputUp ()
     {
         Debug.Log ( "JumpUp" );
-        if ( velocity.y > minJumpVelocity )
+        if ( canJump && velocity.y > minJumpVelocity )
         {
             velocity.y = minJumpVelocity;
         }
+    }
+
+    public void OnAttackInputUp()
+    {
+        Debug.Log("attack");
+        if (canAttack)
+        {
+            end = transform.position;
+            if (directionalInput.x >= 0)
+            {
+                Debug.Log("attack right");
+                end.x += 2;
+            }
+                
+            else if (directionalInput.x < 0)
+            {
+                Debug.Log("attack left");
+                end.x -= 2;
+            }
+            RaycastHit2D hit;
+            hit = Physics2D.Linecast(transform.position, end, enemyLayer);
+
+            if (hit && hit.transform.CompareTag("enemy"))
+            {
+                Debug.Log("Player damaged ENEMY");
+                Destroy(hit.transform.gameObject);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
     }
 
     void HandleWallSliding ()
