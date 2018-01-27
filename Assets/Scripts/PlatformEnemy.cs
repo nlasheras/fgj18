@@ -16,7 +16,9 @@ public class PlatformEnemy : PlatformController
     {
         if ( !target )
         {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            GameObject go = GameObject.FindGameObjectWithTag("Player");
+            if ( go )
+                target = go.transform;
             return;
         }
 
