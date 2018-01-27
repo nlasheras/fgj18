@@ -101,7 +101,7 @@ MonoBehaviour:
   wallJumpOff: {x: 3, y: 2}
   wallLeap: {x: 8, y: 9}
   wallSlideSpeedMax: 1
-  wallStickTime: 0.5
+  wallStickTime: 0.2
 --- !u!114 &114858429809479312
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -14,8 +14,8 @@ public class CharacterAnimation : MonoBehaviour {
     private int m_currentAnim;
     private bool m_mirror;
 
-    private static int STATE_IDLE = 0;
-    private static int STATE_WALK = 1;
+    private const int STATE_IDLE = 0;
+    private const int STATE_WALK = 1;
 	
 	void Start ()
     {
