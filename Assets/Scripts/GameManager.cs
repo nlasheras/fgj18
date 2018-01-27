@@ -22,9 +22,11 @@ public class GameManager : MonoBehaviour {
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene loaded");
         StartGame();
     }
+
+    private Player player;
+
 
     public void Awake ()
     {
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void PlayerDied() {
-        StartCoroutine(RespawnPlayer());
+        SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
     }
 
     IEnumerator RespawnPlayer() {
@@ -60,7 +62,7 @@ public class GameManager : MonoBehaviour {
             playerRespawnPoint = startPoint.transform.position;
             startPoint.LevelStarted();
         }
-        Instantiate(playerPrefab, playerRespawnPoint, playerPrefab.transform.rotation);
+        player = Instantiate(playerPrefab, playerRespawnPoint, playerPrefab.transform.rotation).GetComponent<Player>();
     }
 
     public void StartGame() {

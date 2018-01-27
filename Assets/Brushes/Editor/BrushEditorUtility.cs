@@ -150,58 +150,6 @@ public class BrushEditorUtility
 	
 	public static void PrepareScene()
 	{
-		GameObject rig = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Cameras.prefab");
-		GameObject walls = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Walls.prefab");
-		GameObject floor = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Floor.prefab");
-		GameObject hero = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Hero.prefab");
-		GameObject gameState = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Game state manager.prefab");
-		GameObject canvas = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Canvas stack.prefab");
-		GameObject start = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Level Start.prefab");
-		GameObject goal = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Level Goal.prefab");
-		GameObject swarmSpawner = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Swarm Spawner.prefab");
-		GameObject tintTextureGenerator = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Tint Texture Generator.prefab");
-
-		if (rig != null && walls != null && floor != null && hero != null && gameState != null && canvas != null && start != null && goal != null && swarmSpawner != null)
-		{
-			RenderSettings.ambientLight = Color.white;
-			foreach (var cam in Object.FindObjectsOfType<Camera>())
-			{
-				Object.DestroyImmediate(cam.gameObject, false);
-			}
-			Grid grid = BrushUtility.GetRootGrid(true);
-
-			PrefabUtility.InstantiatePrefab(rig);
-			GameObject wallsGo = PrefabUtility.InstantiatePrefab(walls) as GameObject;
-			PrefabUtility.DisconnectPrefabInstance(wallsGo);
-			wallsGo.transform.SetParent(grid.transform);
-			GameObject floorGo = PrefabUtility.InstantiatePrefab(floor) as GameObject;
-			PrefabUtility.DisconnectPrefabInstance(floorGo);
-			floorGo.transform.SetParent(grid.transform);
-			PrefabUtility.InstantiatePrefab(gameState);
-			PrefabUtility.InstantiatePrefab(swarmSpawner);
-
-			GameObject startGo = PrefabUtility.InstantiatePrefab(start) as GameObject;
-			startGo.transform.SetParent(grid.transform);
-			startGo.transform.position = grid.GetCellCenterWorld(new Vector3Int(-6, 1, 0));
-
-			GameObject goalGo = PrefabUtility.InstantiatePrefab(goal) as GameObject;
-			goalGo.transform.SetParent(grid.transform);
-			goalGo.transform.position = grid.GetCellCenterWorld(new Vector3Int(5, -2, 0));
-
-			GameObject swarmSpawnerGo = PrefabUtility.InstantiatePrefab(swarmSpawner) as GameObject;
-			swarmSpawnerGo.transform.SetParent(grid.transform);
-
-			grid.gameObject.AddComponent<GridInformation>();
-	
-			GameObject tintTextureGo = PrefabUtility.InstantiatePrefab(tintTextureGenerator) as GameObject;
-			tintTextureGo.transform.SetParent(grid.transform);
-
-			LevelBrush.ResetLevelCache();
-		}
-		else
-		{
-			Debug.LogWarning("Some prefabs for initializing the scene are missing.");
-		}
 	}
 
 	public static void AutoSelectGrid()
