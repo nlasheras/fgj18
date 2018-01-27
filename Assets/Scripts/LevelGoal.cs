@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class LevelGoal : MonoBehaviour {
+    public Player.PlayerSkill skillToDisable;
+
     AudioSource audioSource;
     public ParticleSystem victoryParticleSystem;
 
@@ -11,7 +13,7 @@ public class LevelGoal : MonoBehaviour {
         if ( !other.gameObject.CompareTag ( "Player" ) )
             return;
 
-        FindObjectOfType<GameManager>().GoalReached(this);
+        FindObjectOfType<GameManager>().GoalReached(this, skillToDisable);
         if (audioSource != null) audioSource.Play();
         victoryParticleSystem.Play();
     }

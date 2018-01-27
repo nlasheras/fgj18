@@ -355,6 +355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Door: {fileID: 0}
   mainSprite: {fileID: 212195168061004058}
+  offSprite: {fileID: 21300028, guid: 84aee58762d044c808993a2c905a8e14, type: 3}
+  onSprite: {fileID: 21300034, guid: 84aee58762d044c808993a2c905a8e14, type: 3}
   pointLight: {fileID: 108502216665651754}
   color: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
   openingParticleSystem: {fileID: 198350367936447530}
