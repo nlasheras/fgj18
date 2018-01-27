@@ -95,11 +95,10 @@ public class PlayerController : RaycastController
             rayOrigin += Vector2.up * ( horizontalRaySpacing * i );
             RaycastHit2D hit = Physics2D.Raycast ( rayOrigin, Vector2.right * directionX, rayLength, collisionMask );
 
-            //Debug.DrawRay ( rayOrigin, Vector2.right * directionX, Color.red );
+            Debug.DrawRay ( rayOrigin, Vector2.right * directionX, Color.red );
 
             if ( hit )
             {
-                Debug.DrawRay ( rayOrigin, hit.point, Color.red );
                 // If the ray is casted inside an object we skip to the next ray
                 if ( hit.distance == 0 )
                 {
@@ -156,11 +155,10 @@ public class PlayerController : RaycastController
 
             RaycastHit2D hit = Physics2D.Raycast (rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-            //Debug.DrawRay ( rayOrigin, Vector2.up * directionY, Color.red );
+            Debug.DrawRay ( rayOrigin, Vector2.up * directionY, Color.red );
 
             if ( hit )
             {
-                Debug.DrawRay ( rayOrigin, hit.point, Color.green );
                 if ( ( hit.collider.tag ) == "Through" )
                 {
                     if ( directionY == 1 || hit.distance == 0)
