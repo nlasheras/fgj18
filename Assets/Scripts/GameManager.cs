@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,9 +18,31 @@ public class GameManager : MonoBehaviour {
     public bool canAttack = true;
     public bool canWallSlide = true;
 
-    public void Start ()
+    int currentLevel = 0;
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StartGame ();
+        Debug.Log("Scene loaded");
+        StartGame();
+    }
+
+    public void Awake ()
+    {
+        GameObject.DontDestroyOnLoad(gameObject);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void PlayerDied() {
@@ -70,5 +93,8 @@ public class GameManager : MonoBehaviour {
         if (gameState != GameState.Playing) return;
         gameState = GameState.Done;
         float totalTime = Time.time - levelStartedAt;
+
+        currentLevel++;
+        SceneManager.LoadScene(currentLevel);
     }
 }

@@ -4,4 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Levels/lvl2MoveJump.unity
+    guid: 3f383846097d6f146b9ae351b026a31d
+  - enabled: 1
+    path: Assets/Levels/lvl3justMove.unity
+    guid: a060a91c15f83124baa21f32537ded2b
+  - enabled: 1
+    path: Assets/Levels/lvl4MoveRight.unity
+    guid: aad1f034c6d87834f854bcb5d40aac42
