@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [HideInInspector]
-    public Doorkey m_Key;
-
-    public Collider2D blocker;
     public Animator animator;
 
     public SpriteRenderer mainSprite;
@@ -13,6 +9,10 @@ public class Door : MonoBehaviour
 
     MaterialPropertyBlock rendererPropertyBlock;
     public Color color;
+
+    [HideInInspector]
+    public Doorkey m_Key;
+    private Collider2D blocker;
 
     internal void KeyTriggered(Doorkey doorkey) {
         blocker.enabled = false;
@@ -26,6 +26,7 @@ public class Door : MonoBehaviour
 
     void Start() {
         SetColor(color);
+        blocker = GetComponentInChildren<Collider2D> ();
     }
 
     public void SetColor(Color color) {
