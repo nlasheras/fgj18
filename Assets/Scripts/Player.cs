@@ -4,10 +4,14 @@
 [RequireComponent ( typeof ( PlayerController ) )]
 public class Player : MonoBehaviour
 {
-    public bool canJump = true;
-    public bool canMoveBack = true;
-    public bool canAttack = true;
-    public bool canWallSlide = true;
+
+    public enum PlayerSkill {
+        NONE,
+        JUMP,
+        MOVE_BACK,
+        ATTACK,
+        WALL_SLIDE
+    }
 
     public LayerMask enemyLayer;         //Layer on which collision will be checked.
 
@@ -41,8 +45,8 @@ public class Player : MonoBehaviour
     bool wallSliding;
     int wallDirX;
 
-
-    private Vector2 end;
+    GameManager gameManager;
+   
     // Use this for initialization
     void Start ()
     {
@@ -51,8 +55,12 @@ public class Player : MonoBehaviour
         gravity = -( 2 * maxJumpHeight ) / Mathf.Pow ( timeToJumpApex, 2 );
         maxJumpVelocity = Mathf.Abs ( gravity * timeToJumpApex );
         minJumpVelocity = Mathf.Sqrt ( 2 * Mathf.Abs ( gravity ) * minJumpHeight );
-        
+
+        gameManager = FindObjectOfType<GameManager>();
+
         Debug.Log ( "Gravity: " + gravity + " JumpVelocity: " + maxJumpVelocity );
+
+
     }
 
     // Update is called once per frame
@@ -60,7 +68,7 @@ public class Player : MonoBehaviour
     {
         CalculateVelocity ();
 
-        if (canWallSlide)
+        if (gameManager.canWallSlide)
             HandleWallSliding ();
 
         controller.Move ( velocity * Time.deltaTime, directionalInput );
@@ -73,13 +81,13 @@ public class Player : MonoBehaviour
 
     public void SetDirectionalInput ( Vector2 input )
     {
-        if ( canMoveBack || input.x > 0 )
+        if (gameManager.canMoveBack || input.x > 0 )
             directionalInput = input;
     }
 
     public void OnJumpInputDown ()
     {
-        if (!canJump)
+        if (!gameManager.canJump)
             return;
 
         Debug.Log ( "JumpDown" );
@@ -111,7 +119,7 @@ public class Player : MonoBehaviour
     public void OnJumpInputUp ()
     {
         Debug.Log ( "JumpUp" );
-        if ( canJump && velocity.y > minJumpVelocity )
+        if (gameManager.canJump && velocity.y > minJumpVelocity )
         {
             velocity.y = minJumpVelocity;
         }
@@ -120,9 +128,9 @@ public class Player : MonoBehaviour
     public void OnAttackInputUp()
     {
         Debug.Log("attack");
-        if (canAttack)
+        if (gameManager.canAttack)
         {
-            end = transform.position;
+            Vector2 end = transform.position;
             if (directionalInput.x >= 0)
             {
                 Debug.Log("attack right");

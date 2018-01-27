@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour {
     enum GameState { NotStarted, Playing, Done }
     GameState gameState = GameState.NotStarted;
 
+    public bool canJump = true;
+    public bool canMoveBack = true;
+    public bool canAttack = true;
+    public bool canWallSlide = true;
 
     public void Start ()
     {
@@ -42,7 +46,27 @@ public class GameManager : MonoBehaviour {
         levelStartedAt = Time.time;
     }
 
-    public void GoalReached(LevelGoal goal) {
+    public void GoalReached(LevelGoal goal, Player.PlayerSkill playerSkill) {
+
+        switch (playerSkill)
+        {
+            case Player.PlayerSkill.ATTACK:
+                canAttack = false;
+                break;
+            case Player.PlayerSkill.JUMP:
+                canJump = false;
+                break;
+            case Player.PlayerSkill.MOVE_BACK:
+                canMoveBack = false;
+                break;
+            case Player.PlayerSkill.WALL_SLIDE:
+                canWallSlide = false;
+                break;
+            default:
+                break;
+        }
+        
+
         if (gameState != GameState.Playing) return;
         gameState = GameState.Done;
         float totalTime = Time.time - levelStartedAt;
