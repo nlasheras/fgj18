@@ -67,7 +67,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.75, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &114133746098775068
 MonoBehaviour:
@@ -91,14 +91,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac42c6d6e5f65246b91064eb181d7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumpHeight: 2
+  canJump: 1
+  canMoveBack: 1
+  canAttack: 1
+  canWallSlide: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  maxJumpHeight: 3
   minJumpHeight: 1
   timeToJumpApex: 0.4
-  wallJumpClimb: {x: 4, y: 8}
-  wallJumpOff: {x: 3, y: 2}
-  wallLeap: {x: 8, y: 9}
-  wallSlideSpeedMax: 3
-  wallStickTime: 0.25
+  wallJumpClimb: {x: 0, y: 0}
+  wallJumpOff: {x: 0, y: 0}
+  wallLeap: {x: 0, y: 0}
+  wallSlideSpeedMax: 0
+  wallStickTime: 0
 --- !u!114 &114858429809479312
 MonoBehaviour:
   m_ObjectHideFlags: 1
