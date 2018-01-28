@@ -9,6 +9,8 @@ public class CharacterAnimation : MonoBehaviour {
 
     private int m_idleAnim;
     private int m_walkAnim;
+    private int m_attackAnim;
+    private int m_jumpAnim;
 
     private int m_desiredAnim;
     private int m_currentAnim;
@@ -39,6 +41,8 @@ public class CharacterAnimation : MonoBehaviour {
         {
             case STATE_IDLE: return m_idleAnim;
             case STATE_WALK: return m_walkAnim;
+            case STATE_ATTACK: return m_attackAnim;
+            case STATE_JUMP: return m_jumpAnim;
         }
         return m_idleAnim;
     }
