@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     int currentAttackFrameCount = 0;
 
     public bool disableUpdate = false;
+    public bool playerDead = false;
 
     // Use this for initialization
     void Start ()
@@ -72,12 +73,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-       
+        if (playerDead && prevXdir > 0)
+        {
+            characterController.deathRight();
+        }
+        else if (playerDead)
+        {
+            characterController.deathLeft();
+        }
+
         if (!disableUpdate)
         {
             CalculateVelocity();
             if (GameManager.Instance.canWallSlide)
                 HandleWallSliding();
+
             controller.Move(velocity * Time.deltaTime, directionalInput);
 
             if (currentAttackFrameCount > 0 && prevXdir > 0)
@@ -104,7 +114,6 @@ public class Player : MonoBehaviour
                 characterController.idleRight();
         }
 
-        
         if (controller.collisionInfo.above || controller.collisionInfo.below)
         {
             velocity.y = 0;
