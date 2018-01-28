@@ -49,12 +49,14 @@ public class Doorkey : MonoBehaviour
         if ( !other.gameObject.CompareTag ( "Player" ) )
             return;
 
-        m_Door.KeyTriggered ( this );
+        bool status = mainSprite.sprite == offSprite;
+
+        m_Door.KeyTriggered ( !status );
 
         if ( audioSource != null )
             audioSource.Play ();
 
-        mainSprite.sprite = mainSprite.sprite == offSprite ? onSprite : offSprite;
+        mainSprite.sprite = status ? onSprite : offSprite;
 
         openingParticleSystem.transform.SetParent ( null );
         var main = openingParticleSystem.main;
