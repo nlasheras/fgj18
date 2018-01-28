@@ -121,6 +121,7 @@ public class Player : MonoBehaviour
             return;
 
         Debug.Log ( "JumpDown" );
+        EffectsManager.Instance.JumpEffects ();
         if ( wallSliding )
         {
             if ( wallDirX == directionalInput.x )
@@ -161,7 +162,7 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.canAttack)
         {
             currentAttackFrameCount = attackFrameCount;
-            EffectsManager.Instance.RandomShake ();
+            EffectsManager.Instance.HeadButtEffects ();
             end = transform.position;
             if (prevXdir < 0)
             {               

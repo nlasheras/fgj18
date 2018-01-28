@@ -64,6 +64,9 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void PlayerDied ()
     {
+        if ( player == null )
+            return;
+
         gameState = GameState.NotStarted;
         Destroy ( player.gameObject );
         player = null;
