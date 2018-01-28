@@ -44,10 +44,6 @@ public class GameManager : SingletonBehaviour<GameManager> {
                  StartGame ();
                 break;
             case GameState.Playing:
-                if ( Input.GetKeyDown ( KeyCode.R ) )
-                {
-                    SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
-                }
                 break;
             case GameState.Done:
                 break;
