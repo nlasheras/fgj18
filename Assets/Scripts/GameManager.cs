@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +27,12 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         RegisterSingleton ();
         currentLevel = SceneManager.GetActiveScene ().buildIndex;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded ( Scene arg0, LoadSceneMode arg1 )
+    {
+        StartGame ();
     }
 
     private void Update ()
@@ -48,15 +55,16 @@ public class GameManager : SingletonBehaviour<GameManager> {
         }
     }
 
-    public void StartLevel()
+    public void LoadLevel()
     {
-        gameState = GameState.NotStarted;
         Debug.Log ( "currentLevel:" + currentLevel );
         SceneManager.LoadScene ( currentLevel, LoadSceneMode.Single );
+        StartGame ();
     }
 
     public void StartGame ()
     {
+        Debug.Log ( "Starting game" );
         gameState = GameState.Playing;
         SpawnPlayer ();
         levelStartedAt = Time.time;
@@ -122,12 +130,13 @@ public class GameManager : SingletonBehaviour<GameManager> {
     protected IEnumerator WaitAndStartNextLevel()
     {
         currentLevel++;
+
         Debug.Log("currentLevel:" + currentLevel);
 
         yield return new WaitForSeconds(7.25f);
 
         player.disableUpdate = false;
-        StartLevel();
+        LoadLevel ();
     }
 
     public void GameEndReached()
@@ -139,5 +148,6 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         Debug.Log ( "GameManager OnDestroy" );
         UnregisterSingleton ();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 }
