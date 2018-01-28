@@ -20,6 +20,9 @@ public class CharacterAnimation : MonoBehaviour {
     private const int STATE_WALK = 1;
 	private const int STATE_ATTACK = 2;
     private const int STATE_JUMP = 3;
+    private const int STATE_TRANSMISSION_ATTACK = 4;
+    private const int STATE_TRANSMISSION_JUMP = 5;
+    private const int STATE_TRANSMISSION_BACK = 6;
 
     void Start ()
     {
@@ -43,6 +46,10 @@ public class CharacterAnimation : MonoBehaviour {
             case STATE_WALK: return m_walkAnim;
             case STATE_ATTACK: return m_attackAnim;
             case STATE_JUMP: return m_jumpAnim;
+
+            case STATE_TRANSMISSION_BACK: return Animator.StringToHash("Base Layer.transmission_back");
+            case STATE_TRANSMISSION_JUMP: return Animator.StringToHash("Base Layer.transmission_jump");
+            case STATE_TRANSMISSION_ATTACK: return Animator.StringToHash("Base Layer.transmission_attack");
         }
         return m_idleAnim;
     }
@@ -73,5 +80,16 @@ public class CharacterAnimation : MonoBehaviour {
 
     public void attackRight() { setState(STATE_ATTACK, false); }
     public void attackLeft() { setState(STATE_ATTACK, true); }
+
+    public void playTransmission(Player.PlayerSkill skill, int delay = 150)
+    {
+        if (skill == Player.PlayerSkill.ATTACK)
+            setState(STATE_TRANSMISSION_ATTACK, false);
+        else if (skill == Player.PlayerSkill.JUMP)
+            setState(STATE_TRANSMISSION_JUMP, false);
+        else
+            setState(STATE_TRANSMISSION_BACK, false);
+    }
+
 
 }
