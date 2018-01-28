@@ -25,6 +25,7 @@ public class CharacterAnimation : MonoBehaviour {
     private const int STATE_TRANSMISSION_JUMP = 5;
     private const int STATE_TRANSMISSION_BACK = 6;
     private const int STATE_DEATH = 7;
+    private const int STATE_TRANSMISSION_END = 8;
 
     void Start ()
     {
@@ -54,6 +55,7 @@ public class CharacterAnimation : MonoBehaviour {
             case STATE_TRANSMISSION_BACK: return Animator.StringToHash("Base Layer.transmission_back");
             case STATE_TRANSMISSION_JUMP: return Animator.StringToHash("Base Layer.transmission_jump");
             case STATE_TRANSMISSION_ATTACK: return Animator.StringToHash("Base Layer.transmission_attack");
+            case STATE_TRANSMISSION_END: return Animator.StringToHash("Base Layer.transmission_end");
         }
         return m_idleAnim;
     }
@@ -98,5 +100,8 @@ public class CharacterAnimation : MonoBehaviour {
             setState(STATE_TRANSMISSION_BACK, false);
     }
 
-
+    public void playTransmissionEnd()
+    {
+        setState(STATE_TRANSMISSION_END, false);
+    }
 }
