@@ -3794,12 +3794,12 @@ Prefab:
     - target: {fileID: 114760562688512272, guid: c0e6ae8b55fd36e4ab41a30735b6b52f,
         type: 2}
       propertyPath: localWaypoints.Array.data[1].y
-      value: 2
+      value: 4.3
       objectReference: {fileID: 0}
     - target: {fileID: 114760562688512272, guid: c0e6ae8b55fd36e4ab41a30735b6b52f,
         type: 2}
       propertyPath: localWaypoints.Array.data[1].x
-      value: 3
+      value: 4.22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0e6ae8b55fd36e4ab41a30735b6b52f, type: 2}
