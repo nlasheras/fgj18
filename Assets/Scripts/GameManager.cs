@@ -75,9 +75,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
         if ( player == null )
             return;
 
-        gameState = GameState.NotStarted;
-        Destroy ( player.gameObject );
-        player = null;
+        StartCoroutine(WaitAndDie());
     }
 
     void SpawnPlayer()
@@ -95,9 +93,8 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void GoalReached(LevelGoal goal, Player.PlayerSkill playerSkill)
     {
-        player.GetComponent<CharacterAnimation>().playTransmission(playerSkill);
-        player.disableUpdate = true;
 
+        player.GetComponent<CharacterAnimation>().playTransmission(playerSkill);
         goal.gameObject.GetComponentInChildren<StatueAnimation>().PlayAnimation();
 
         switch (playerSkill)
@@ -129,14 +126,29 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     protected IEnumerator WaitAndStartNextLevel()
     {
+        player.disableUpdate = true;
+
         currentLevel++;
 
         Debug.Log("currentLevel:" + currentLevel);
 
-        yield return new WaitForSeconds(7.25f);
+        yield return new WaitForSeconds(7);
 
         player.disableUpdate = false;
         LoadLevel ();
+    }
+
+    protected IEnumerator WaitAndDie()
+    {
+        player.playerDead = true;
+        player.disableUpdate = true;
+        yield return new WaitForSeconds(3);
+        player.disableUpdate = false;
+        player.playerDead = false;
+        gameState = GameState.NotStarted;
+        Destroy(player.gameObject);
+        player = null;
+
     }
 
     public void GameEndReached()
