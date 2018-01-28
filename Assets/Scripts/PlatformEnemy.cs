@@ -2,33 +2,14 @@
 
 public class PlatformEnemy : PlatformController
 {
-    private Transform target;
- 
-    // Use this for initialization
-    public override void Start()
+    private void OnTriggerEnter2D ( Collider2D other )
     {
-        base.Start(); 
-    }
-
-    void Update()
-    {
-        if ( !target )
-        {
-            GameObject go = GameObject.FindGameObjectWithTag("Player");
-            if ( go )
-                target = go.transform;
+        if ( !other.gameObject.CompareTag ( "Player" ) )
             return;
-        }
 
-        float sqrRemainingDistance = (transform.position - target.position).sqrMagnitude;
+        Debug.Log ( "Player Got hit by the enemy!!" );
 
-        if (sqrRemainingDistance <= 3.0f)
-        {
-            Debug.Log("Player Got hit by the enemy!!");
-            Destroy(target.gameObject);
-
-            GameManager.Instance.PlayerDied ();
-        }
+        GameManager.Instance.PlayerDied ();
     }
 
 }
