@@ -151,8 +151,8 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void GameEndReached()
     {
-        currentLevel++;
-        LoadLevel();
+        player.GetComponent<CharacterAnimation>().playTransmissionEnd();
+        StartCoroutine(WaitAndStartNextLevel());
     }
 
     private void OnDestroy ()
