@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public float maxJumpHeight = 2f;
     public float minJumpHeight = 1f;
     public float timeToJumpApex = .5f;
-    public float attackReach = 1.5f;
+    public float attackReach = 1.0f;
 
     public Vector2 wallJumpClimb;
     public Vector2 wallJumpOff;
@@ -174,9 +174,10 @@ public class Player : MonoBehaviour
                 Debug.Log("attack right");
                 end.x += attackReach;
             }
-            RaycastHit2D hit;
-            hit = Physics2D.Linecast(transform.position, end, enemyLayer);
-
+            //RaycastHit2D hit;
+            //hit = Physics2D.Linecast(transform.position, end, enemyLayer);
+            Collider2D hit;
+            hit = Physics2D.OverlapCircle(end, attackReach, enemyLayer);
             if (hit && hit.transform.CompareTag("enemy"))
             {
                 Debug.Log("Player damaged ENEMY");
@@ -187,7 +188,7 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(end, 0.2f);
+        Gizmos.DrawSphere(end, attackReach);
     }
 
     void HandleWallSliding ()
