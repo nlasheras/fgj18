@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 84aee58762d044c808993a2c905a8e14
-timeCreated: 1517138141
+timeCreated: 1517143952
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -23,6 +23,7 @@ TextureImporter:
     21300032: door
     21300034: switch_1
     21300036: ghost_1
+    21300038: end_goal
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -354,6 +355,20 @@ TextureImporter:
         y: 95
         width: 16
         height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: end_goal
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 80
+        width: 16
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
