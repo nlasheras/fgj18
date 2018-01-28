@@ -75,7 +75,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         if ( player == null )
             return;
-
+        EffectsManager.Instance.DeathEffects ();
         StartCoroutine(WaitAndDie());
     }
 
