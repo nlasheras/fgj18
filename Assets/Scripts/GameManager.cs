@@ -138,6 +138,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
     protected IEnumerator WaitAndDie()
     {
         player.playerDead = true;
+        player.GetComponent<Collider2D> ().enabled = false;
         player.disableUpdate = true;
         yield return new WaitForSeconds(3);
         player.disableUpdate = false;
