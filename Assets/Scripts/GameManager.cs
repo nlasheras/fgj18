@@ -33,10 +33,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
         switch ( gameState )
         {
             case GameState.NotStarted:
-                if ( Input.GetKeyDown ( KeyCode.Space ) )
-                {
-                    StartGame ();
-                }
+                 StartGame ();
                 break;
             case GameState.Playing:
                 if ( Input.GetKeyDown ( KeyCode.R ) )

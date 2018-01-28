@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartGame.unity
+    guid: 6a1dc3de206b5914887dfd45e65b7c5b
+  - enabled: 1
+    path: Assets/Levels/lvl1AttackJumpMove.unity
+    guid: c2b953d9fb4c61e47a60939882cc899f
+  - enabled: 1
     path: Assets/Levels/lvl2MoveJump.unity
     guid: 3f383846097d6f146b9ae351b026a31d
   - enabled: 1

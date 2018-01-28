@@ -34,8 +34,6 @@ public class ScreenShaker : MonoBehaviour
         position.x += ( velocity.x );
         position.y += ( velocity.y );
 
-        //Debug.Log ( "Velocity " + velocity );
-        //Debug.Log ("Target position: " + position );
         target.transform.position = new Vector3 ( position.x, position.y, -5f );
     }
 }
