@@ -146,3 +146,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpSFX: {fileID: 8300000, guid: e54f39f6ce53e244d95d09f55c15f219, type: 3}
   headButtSFX: {fileID: 8300000, guid: e54f39f6ce53e244d95d09f55c15f219, type: 3}
+  deathSFX: {fileID: 8300000, guid: 33aba38a97b6ad949a46086f17782ac0, type: 3}
