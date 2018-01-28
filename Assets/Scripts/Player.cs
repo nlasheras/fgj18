@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float maxJumpHeight = 2f;
     public float minJumpHeight = 1f;
     public float timeToJumpApex = .5f;
+    public float attackReach = 1.5f;
 
     public Vector2 wallJumpClimb;
     public Vector2 wallJumpOff;
@@ -49,6 +50,9 @@ public class Player : MonoBehaviour
 
     CharacterAnimation characterController;
 
+    const int attackFrameCount = 8;
+    int currentAttackFrameCount = 0;
+
     // Use this for initialization
     void Start ()
     {
@@ -73,9 +77,19 @@ public class Player : MonoBehaviour
 
         controller.Move ( velocity * Time.deltaTime, directionalInput );
 
-        if (velocity.y > 0 && directionalInput.x > 0)
+        if (currentAttackFrameCount > 0 && prevXdir > 0)
+        {
+            currentAttackFrameCount--;
+            characterController.attackRight();
+        }
+        else if (currentAttackFrameCount > 0 )
+        {
+            currentAttackFrameCount--;
+            characterController.attackLeft();
+        }
+        else if (velocity.y > 0 && prevXdir > 0)
             characterController.jumpRight();
-        else if (velocity.y > 0 && directionalInput.x < 0)
+        else if (velocity.y > 0)
             characterController.jumpLeft();
         else if (directionalInput.x > 0)
             characterController.moveRight();
@@ -94,7 +108,7 @@ public class Player : MonoBehaviour
 
     public void SetDirectionalInput ( Vector2 input )
     {
-        if (GameManager.Instance.canMoveBack || input.x > 0 )
+        if (GameManager.Instance.canMoveBack || input.x >= 0 )
             directionalInput = input;
 
         if (input.x != 0)
@@ -141,25 +155,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    Vector2 end = Vector2.zero;
     public void OnAttackInputUp()
     {
-        Debug.Log("attack");
         if (GameManager.Instance.canAttack)
         {
+            currentAttackFrameCount = attackFrameCount;
             EffectsManager.Instance.RandomShake ();
-            Vector2 end = transform.position;
-            if (directionalInput.x >= 0)
-            {
-                characterController.attackRight();
-                Debug.Log("attack right");
-                end.x += 2;
-            }
-                
-            else if (directionalInput.x < 0)
-            {
-                characterController.attackLeft();
+            end = transform.position;
+            if (prevXdir < 0)
+            {               
                 Debug.Log("attack left");
-                end.x -= 2;
+                end.x -= attackReach;
+            }
+            else
+            {
+                Debug.Log("attack right");
+                end.x += attackReach;
             }
             RaycastHit2D hit;
             hit = Physics2D.Linecast(transform.position, end, enemyLayer);
@@ -174,6 +186,7 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.DrawSphere(end, 0.2f);
     }
 
     void HandleWallSliding ()
