@@ -95,6 +95,11 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void GoalReached(LevelGoal goal, Player.PlayerSkill playerSkill)
     {
+        player.GetComponent<CharacterAnimation>().playTransmission(playerSkill);
+        player.disableUpdate = true;
+
+        goal.gameObject.GetComponentInChildren<StatueAnimation>().PlayAnimation();
+
         switch (playerSkill)
         {
             case Player.PlayerSkill.ATTACK:
@@ -118,8 +123,19 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
         float totalTime = Time.time - levelStartedAt;
 
+        StartCoroutine(WaitAndStartNextLevel());
+
+    }
+
+    protected IEnumerator WaitAndStartNextLevel()
+    {
         currentLevel++;
-        Debug.Log ( "currentLevel:" +currentLevel );
+
+        Debug.Log("currentLevel:" + currentLevel);
+
+        yield return new WaitForSeconds(7.25f);
+
+        player.disableUpdate = false;
         LoadLevel ();
     }
 

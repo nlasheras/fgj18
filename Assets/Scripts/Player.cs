@@ -53,6 +53,8 @@ public class Player : MonoBehaviour
     const int attackFrameCount = 8;
     int currentAttackFrameCount = 0;
 
+    public bool disableUpdate = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -70,36 +72,39 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        CalculateVelocity ();
-
-        if (GameManager.Instance.canWallSlide)
-            HandleWallSliding ();
-
-        controller.Move ( velocity * Time.deltaTime, directionalInput );
-
-        if (currentAttackFrameCount > 0 && prevXdir > 0)
+       
+        if (!disableUpdate)
         {
-            currentAttackFrameCount--;
-            characterController.attackRight();
-        }
-        else if (currentAttackFrameCount > 0 )
-        {
-            currentAttackFrameCount--;
-            characterController.attackLeft();
-        }
-        else if (velocity.y > 0 && prevXdir > 0)
-            characterController.jumpRight();
-        else if (velocity.y > 0)
-            characterController.jumpLeft();
-        else if (directionalInput.x > 0)
-            characterController.moveRight();
-        else if (directionalInput.x < 0)
-            characterController.moveLeft();
-        else if (prevXdir < 0)
-            characterController.idleLeft();
-        else
-            characterController.idleRight();
+            CalculateVelocity();
+            if (GameManager.Instance.canWallSlide)
+                HandleWallSliding();
+            controller.Move(velocity * Time.deltaTime, directionalInput);
 
+            if (currentAttackFrameCount > 0 && prevXdir > 0)
+            {
+                currentAttackFrameCount--;
+                characterController.attackRight();
+            }
+            else if (currentAttackFrameCount > 0)
+            {
+                currentAttackFrameCount--;
+                characterController.attackLeft();
+            }
+            else if (velocity.y > 0 && prevXdir > 0)
+                characterController.jumpRight();
+            else if (velocity.y > 0)
+                characterController.jumpLeft();
+            else if (directionalInput.x > 0)
+                characterController.moveRight();
+            else if (directionalInput.x < 0)
+                characterController.moveLeft();
+            else if (prevXdir < 0)
+                characterController.idleLeft();
+            else
+                characterController.idleRight();
+        }
+
+        
         if (controller.collisionInfo.above || controller.collisionInfo.below)
         {
             velocity.y = 0;
