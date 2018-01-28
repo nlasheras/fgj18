@@ -146,6 +146,7 @@ public class Player : MonoBehaviour
         Debug.Log("attack");
         if (GameManager.Instance.canAttack)
         {
+            EffectsManager.Instance.RandomShake ();
             Vector2 end = transform.position;
             if (directionalInput.x >= 0)
             {
