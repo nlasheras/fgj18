@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float maxJumpHeight = 2f;
     public float minJumpHeight = 1f;
     public float timeToJumpApex = .5f;
+    public float attackReach = 1.0f;
 
     public Vector2 wallJumpClimb;
     public Vector2 wallJumpOff;
@@ -49,6 +50,12 @@ public class Player : MonoBehaviour
 
     CharacterAnimation characterController;
 
+    const int attackFrameCount = 8;
+    int currentAttackFrameCount = 0;
+
+    public bool disableUpdate = false;
+    public bool playerDead = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -66,25 +73,46 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        CalculateVelocity ();
+        if (playerDead && prevXdir > 0)
+        {
+            characterController.deathRight();
+        }
+        else if (playerDead)
+        {
+            characterController.deathLeft();
+        }
 
-        if (GameManager.Instance.canWallSlide)
-            HandleWallSliding ();
+        if (!disableUpdate)
+        {
+            CalculateVelocity();
+            if (GameManager.Instance.canWallSlide)
+                HandleWallSliding();
 
-        controller.Move ( velocity * Time.deltaTime, directionalInput );
+            controller.Move(velocity * Time.deltaTime, directionalInput);
 
-        if (velocity.y > 0 && directionalInput.x > 0)
-            characterController.jumpRight();
-        else if (velocity.y > 0 && directionalInput.x < 0)
-            characterController.jumpLeft();
-        else if (directionalInput.x > 0)
-            characterController.moveRight();
-        else if (directionalInput.x < 0)
-            characterController.moveLeft();
-        else if (prevXdir < 0)
-            characterController.idleLeft();
-        else
-            characterController.idleRight();
+            if (currentAttackFrameCount > 0 && prevXdir > 0)
+            {
+                currentAttackFrameCount--;
+                characterController.attackRight();
+            }
+            else if (currentAttackFrameCount > 0)
+            {
+                currentAttackFrameCount--;
+                characterController.attackLeft();
+            }
+            else if (velocity.y > 0 && prevXdir > 0)
+                characterController.jumpRight();
+            else if (velocity.y > 0)
+                characterController.jumpLeft();
+            else if (directionalInput.x > 0)
+                characterController.moveRight();
+            else if (directionalInput.x < 0)
+                characterController.moveLeft();
+            else if (prevXdir < 0)
+                characterController.idleLeft();
+            else
+                characterController.idleRight();
+        }
 
         if (controller.collisionInfo.above || controller.collisionInfo.below)
         {
@@ -94,7 +122,7 @@ public class Player : MonoBehaviour
 
     public void SetDirectionalInput ( Vector2 input )
     {
-        if (GameManager.Instance.canMoveBack || input.x > 0 )
+        if (GameManager.Instance.canMoveBack || input.x >= 0 )
             directionalInput = input;
 
         if (input.x != 0)
@@ -107,6 +135,7 @@ public class Player : MonoBehaviour
             return;
 
         Debug.Log ( "JumpDown" );
+        EffectsManager.Instance.JumpEffects ();
         if ( wallSliding )
         {
             if ( wallDirX == directionalInput.x )
@@ -141,29 +170,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    Vector2 end = Vector2.zero;
     public void OnAttackInputUp()
     {
-        Debug.Log("attack");
         if (GameManager.Instance.canAttack)
         {
-            EffectsManager.Instance.RandomShake ();
-            Vector2 end = transform.position;
-            if (directionalInput.x >= 0)
-            {
-                characterController.attackRight();
-                Debug.Log("attack right");
-                end.x += 2;
-            }
-                
-            else if (directionalInput.x < 0)
-            {
-                characterController.attackLeft();
+            currentAttackFrameCount = attackFrameCount;
+            EffectsManager.Instance.HeadButtEffects ();
+            end = transform.position;
+            if (prevXdir < 0)
+            {               
                 Debug.Log("attack left");
-                end.x -= 2;
+                end.x -= attackReach;
             }
-            RaycastHit2D hit;
-            hit = Physics2D.Linecast(transform.position, end, enemyLayer);
-
+            else
+            {
+                Debug.Log("attack right");
+                end.x += attackReach;
+            }
+            //RaycastHit2D hit;
+            //hit = Physics2D.Linecast(transform.position, end, enemyLayer);
+            Collider2D hit;
+            hit = Physics2D.OverlapCircle(end, attackReach, enemyLayer);
             if (hit && hit.transform.CompareTag("enemy"))
             {
                 Debug.Log("Player damaged ENEMY");
@@ -174,6 +202,7 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.DrawSphere(end, attackReach);
     }
 
     void HandleWallSliding ()

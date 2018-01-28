@@ -203,7 +203,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3
   m_Range: 3
   m_SpotAngle: 30
@@ -244,7 +244,7 @@ MonoBehaviour:
   animator: {fileID: 95795057835136948}
   mainSprite: {fileID: 212239243036290848}
   pointLight: {fileID: 108670139352706612}
-  color: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   m_Key: {fileID: 0}
 --- !u!212 &212239243036290848
 SpriteRenderer:

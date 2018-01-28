@@ -6,11 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartGame.unity
+    guid: 6a1dc3de206b5914887dfd45e65b7c5b
+  - enabled: 1
+    path: Assets/Levels/lvl1AttackJumpMove.unity
+    guid: c2b953d9fb4c61e47a60939882cc899f
+  - enabled: 1
     path: Assets/Levels/lvl2MoveJump.unity
     guid: 3f383846097d6f146b9ae351b026a31d
   - enabled: 1
     path: Assets/Levels/lvl3justMove.unity
     guid: a060a91c15f83124baa21f32537ded2b
   - enabled: 1
-    path: Assets/Levels/lvl4MoveRight.unity
-    guid: aad1f034c6d87834f854bcb5d40aac42
+    path: Assets/Levels/lvl4GoRight.unity
+    guid: 5a2b7b6c427bb46449382f603d5d3c98
+  - enabled: 1
+    path: Assets/Scenes/EndGame.unity
+    guid: c998a23dea439434b833882f271aab9c

@@ -14,9 +14,10 @@ public class Door : MonoBehaviour
     public Doorkey m_Key;
     private Collider2D blocker;
 
-    internal void KeyTriggered(Doorkey doorkey) {
-        blocker.enabled = false;
-        animator.SetBool("open", true);
+    internal void KeyTriggered(bool status)
+    {
+        blocker.enabled = status;
+        mainSprite.enabled = status;
     }
 
     void OnValidate() {

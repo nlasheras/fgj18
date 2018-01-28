@@ -315,7 +315,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3
   m_Range: 2
   m_SpotAngle: 30
@@ -358,7 +358,7 @@ MonoBehaviour:
   offSprite: {fileID: 21300028, guid: 84aee58762d044c808993a2c905a8e14, type: 3}
   onSprite: {fileID: 21300034, guid: 84aee58762d044c808993a2c905a8e14, type: 3}
   pointLight: {fileID: 108502216665651754}
-  color: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   openingParticleSystem: {fileID: 198350367936447530}
   animator: {fileID: 95027510509472838}
 --- !u!198 &198350367936447530
@@ -487,7 +487,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

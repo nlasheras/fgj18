@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +27,13 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         RegisterSingleton ();
         currentLevel = SceneManager.GetActiveScene ().buildIndex;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded ( Scene arg0, LoadSceneMode arg1 )
+    {
+        if (currentLevel < 5)
+            StartGame ();
     }
 
     private void Update ()
@@ -33,16 +41,9 @@ public class GameManager : SingletonBehaviour<GameManager> {
         switch ( gameState )
         {
             case GameState.NotStarted:
-                if ( Input.GetKeyDown ( KeyCode.Space ) )
-                {
-                    StartGame ();
-                }
+                 StartGame ();
                 break;
             case GameState.Playing:
-                if ( Input.GetKeyDown ( KeyCode.R ) )
-                {
-                    SceneManager.LoadScene ( SceneManager.GetActiveScene ().name, LoadSceneMode.Single );
-                }
                 break;
             case GameState.Done:
                 break;
@@ -51,15 +52,16 @@ public class GameManager : SingletonBehaviour<GameManager> {
         }
     }
 
-    public void StartLevel()
+    public void LoadLevel()
     {
-        gameState = GameState.NotStarted;
         Debug.Log ( "currentLevel:" + currentLevel );
         SceneManager.LoadScene ( currentLevel, LoadSceneMode.Single );
+        StartGame ();
     }
 
     public void StartGame ()
     {
+        Debug.Log ( "Starting game" );
         gameState = GameState.Playing;
         SpawnPlayer ();
         levelStartedAt = Time.time;
@@ -67,9 +69,10 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void PlayerDied ()
     {
-        gameState = GameState.NotStarted;
-        Destroy ( player.gameObject );
-        player = null;
+        if ( player == null )
+            return;
+        EffectsManager.Instance.DeathEffects ();
+        StartCoroutine(WaitAndDie());
     }
 
     void SpawnPlayer()
@@ -87,6 +90,10 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void GoalReached(LevelGoal goal, Player.PlayerSkill playerSkill)
     {
+
+        player.GetComponent<CharacterAnimation>().playTransmission(playerSkill);
+        goal.gameObject.GetComponentInChildren<StatueAnimation>().PlayAnimation();
+
         switch (playerSkill)
         {
             case Player.PlayerSkill.ATTACK:
@@ -108,17 +115,50 @@ public class GameManager : SingletonBehaviour<GameManager> {
         if (gameState != GameState.Playing)
             return;
 
-        gameState = GameState.Done;
         float totalTime = Time.time - levelStartedAt;
 
+        StartCoroutine(WaitAndStartNextLevel());
+
+    }
+
+    protected IEnumerator WaitAndStartNextLevel()
+    {
+        player.disableUpdate = true;
+
         currentLevel++;
-        Debug.Log ( "currentLevel:" +currentLevel );
-        StartLevel ();
+
+        Debug.Log("currentLevel:" + currentLevel);
+
+        yield return new WaitForSeconds(7);
+
+        player.disableUpdate = false;
+        LoadLevel ();
+    }
+
+    protected IEnumerator WaitAndDie()
+    {
+        player.playerDead = true;
+        player.GetComponent<Collider2D> ().enabled = false;
+        player.disableUpdate = true;
+        yield return new WaitForSeconds(3);
+        player.disableUpdate = false;
+        player.playerDead = false;
+        gameState = GameState.NotStarted;
+        Destroy(player.gameObject);
+        player = null;
+
+    }
+
+    public void GameEndReached()
+    {
+        player.GetComponent<CharacterAnimation>().playTransmissionEnd();
+        StartCoroutine(WaitAndStartNextLevel());
     }
 
     private void OnDestroy ()
     {
         Debug.Log ( "GameManager OnDestroy" );
         UnregisterSingleton ();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 }
