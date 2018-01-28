@@ -116,6 +116,11 @@ public class GameManager : SingletonBehaviour<GameManager> {
         StartLevel ();
     }
 
+    public void GameEndReached()
+    {
+        Debug.Log("Game End");
+    }
+
     private void OnDestroy ()
     {
         Debug.Log ( "GameManager OnDestroy" );
