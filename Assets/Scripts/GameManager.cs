@@ -32,7 +32,8 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     private void OnSceneLoaded ( Scene arg0, LoadSceneMode arg1 )
     {
-        StartGame ();
+        if (currentLevel < 5)
+            StartGame ();
     }
 
     private void Update ()
@@ -153,7 +154,8 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void GameEndReached()
     {
-        Debug.Log("Game End");
+        currentLevel++;
+        LoadLevel();
     }
 
     private void OnDestroy ()
