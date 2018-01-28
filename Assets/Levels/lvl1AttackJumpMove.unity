@@ -163,22 +163,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13c67616a4404c948869ef9b59ef9a36, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &25865506 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1554927427275832, guid: 090b567c038ecf9449ee2d6f58793dd2,
-    type: 2}
-  m_PrefabInternal: {fileID: 1703361271}
---- !u!114 &25865507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 25865506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7973c929fe72bd4383f30a47be70de1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &74808112
 Prefab:
   m_ObjectHideFlags: 0
@@ -277,6 +261,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4209904715019826, guid: 9f1714d8ae56e0946aaa585135dcef52, type: 2}
       propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114624060714771742, guid: 9f1714d8ae56e0946aaa585135dcef52,
+        type: 2}
+      propertyPath: skillToDisable
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
