@@ -113,7 +113,6 @@ public class GameManager : SingletonBehaviour<GameManager> {
         if (gameState != GameState.Playing)
             return;
 
-        gameState = GameState.Done;
         float totalTime = Time.time - levelStartedAt;
 
         StartCoroutine(WaitAndStartNextLevel());
