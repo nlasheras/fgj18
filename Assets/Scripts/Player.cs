@@ -86,9 +86,9 @@ public class Player : MonoBehaviour
             currentAttackFrameCount--;
             characterController.attackLeft();
         }
-        else if (velocity.y > 0 && directionalInput.x > 0)
+        else if (velocity.y > 0 && prevXdir > 0)
             characterController.jumpRight();
-        else if (velocity.y > 0 && directionalInput.x < 0)
+        else if (velocity.y > 0)
             characterController.jumpLeft();
         else if (directionalInput.x > 0)
             characterController.moveRight();
