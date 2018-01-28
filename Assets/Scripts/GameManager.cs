@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +27,12 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         RegisterSingleton ();
         currentLevel = SceneManager.GetActiveScene ().buildIndex;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded ( Scene arg0, LoadSceneMode arg1 )
+    {
+        StartGame ();
     }
 
     private void Update ()
@@ -48,15 +55,16 @@ public class GameManager : SingletonBehaviour<GameManager> {
         }
     }
 
-    public void StartLevel()
+    public void LoadLevel()
     {
-        gameState = GameState.NotStarted;
         Debug.Log ( "currentLevel:" + currentLevel );
         SceneManager.LoadScene ( currentLevel, LoadSceneMode.Single );
+        StartGame ();
     }
 
     public void StartGame ()
     {
+        Debug.Log ( "Starting game" );
         gameState = GameState.Playing;
         SpawnPlayer ();
         levelStartedAt = Time.time;
@@ -87,6 +95,11 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public void GoalReached(LevelGoal goal, Player.PlayerSkill playerSkill)
     {
+        player.GetComponent<CharacterAnimation>().playTransmission(playerSkill);
+        player.disableUpdate = true;
+
+        goal.gameObject.GetComponentInChildren<StatueAnimation>().PlayAnimation();
+
         switch (playerSkill)
         {
             case Player.PlayerSkill.ATTACK:
@@ -110,9 +123,20 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
         float totalTime = Time.time - levelStartedAt;
 
+        StartCoroutine(WaitAndStartNextLevel());
+
+    }
+
+    protected IEnumerator WaitAndStartNextLevel()
+    {
         currentLevel++;
-        Debug.Log ( "currentLevel:" +currentLevel );
-        StartLevel ();
+
+        Debug.Log("currentLevel:" + currentLevel);
+
+        yield return new WaitForSeconds(7.25f);
+
+        player.disableUpdate = false;
+        LoadLevel ();
     }
 
     public void GameEndReached()
@@ -124,5 +148,6 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         Debug.Log ( "GameManager OnDestroy" );
         UnregisterSingleton ();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 }
