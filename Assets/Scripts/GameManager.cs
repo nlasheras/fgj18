@@ -124,7 +124,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
         currentLevel++;
         Debug.Log("currentLevel:" + currentLevel);
 
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(6);
 
         player.disableUpdate = false;
         StartLevel();
