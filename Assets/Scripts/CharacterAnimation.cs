@@ -16,14 +16,18 @@ public class CharacterAnimation : MonoBehaviour {
 
     private const int STATE_IDLE = 0;
     private const int STATE_WALK = 1;
-	
-	void Start ()
+	private const int STATE_ATTACK = 2;
+    private const int STATE_JUMP = 3;
+
+    void Start ()
     {
         m_animator = GetComponent<Animator>();
         m_renderer = GetComponent<SpriteRenderer>();
 
         m_idleAnim = Animator.StringToHash("Base Layer.idle_right");
         m_walkAnim = Animator.StringToHash("Base Layer.walk_right");
+        m_attackAnim = Animator.StringToHash("Base Layer.attack_right");
+        m_jumpAnim = Animator.StringToHash("Base Layer.jump_right");
 
         m_currentAnim = -1;
         m_desiredAnim = STATE_IDLE;
@@ -60,10 +64,10 @@ public class CharacterAnimation : MonoBehaviour {
     public void idleRight() { setState(STATE_IDLE, false); }
     public void idleLeft() { setState(STATE_IDLE, true); }
 
-    public void jumpRight() { setState(STATE_WALK, false); }
-    public void jumpLeft() { setState(STATE_WALK, true); }
+    public void jumpRight() { setState(STATE_JUMP, false); }
+    public void jumpLeft() { setState(STATE_JUMP, true); }
 
-    public void attackRight() { setState(STATE_WALK, false); }
-    public void attackLeft() { setState(STATE_WALK, true); }
+    public void attackRight() { setState(STATE_ATTACK, false); }
+    public void attackLeft() { setState(STATE_ATTACK, true); }
 
 }
